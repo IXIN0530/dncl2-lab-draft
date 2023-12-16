@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+*:focus {
+    outline: none;
+}
+
 @layer utilities {
     .bg-1 {
         @apply bg-depth-1 dark:bg-depth-1-dark;
@@ -12,10 +16,18 @@
     }
 
     .bg-2-hover {
-        @apply bg-depth-2-hover dark:bg-depth-2-dark-hover;    
+        @apply bg-depth-2-hover dark:bg-depth-2-dark-hover;
     }
 
     .bg-3 {
         @apply bg-depth-3 dark:bg-depth-3-dark;
+    }
+
+    .editor-block {
+        @apply px-3 py-1 rounded-xl text-center;
+    }
+
+    .editor-text {
+        @apply font-bold;
     }
 }
