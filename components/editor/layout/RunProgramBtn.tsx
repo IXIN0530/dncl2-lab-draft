@@ -25,7 +25,7 @@ const RunProgram = ({ program }: Props) => {
       runner.run(program);
     } catch (e: any) {
       error.push({
-        index: runner.runningIndex + 1,
+        index: runner.runningIndex,
         text: e.message,
         isError: true,
       });

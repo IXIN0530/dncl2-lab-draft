@@ -1,18 +1,20 @@
 import BaseSelectBlock from "./BaseSelectBlock";
 
 type Props = {
-  choices: string[],
-  defaultChoice: string,
+  choices: { [id: string]: { name: string } },
+  value: string,
+  setValue: (value: string) => void,
   children?: React.ReactNode,
 }
 
-const FunctionSelectBlock = ({ choices, defaultChoice, children }: Props) => {
+const FunctionSelectBlock = ({ choices, value, setValue, children }: Props) => {
   return (
     <div className="flex">
       <BaseSelectBlock
         className="bg-function/10 text-function"
         choices={choices}
-        defaultValue={defaultChoice}
+        value={value}
+        setValue={setValue}
       />
       <p className="editor-text text-xl mx-1 text-function">{"("}</p>
       <div className="flex gap-2">

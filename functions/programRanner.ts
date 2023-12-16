@@ -30,10 +30,10 @@ class ProgramRunner {
                     this.variables[line.target.id] = { name: line.target.name, value: this.getRawValue(line.value) };
                     break;
                 case "reassign-variable":
-                    this.variables[line.id].value = this.getRawValue(line.value);
+                    this.variables[line.target.id].value = this.getRawValue(line.value);
                     break;
                 case "function":
-                    this.functions[line.id].action(this.getRawValue(line.value));
+                    this.functions[line.target.id].action(this.getRawValue(line.value));
                     break;
                 case "branch":
                     if (this.getRawValue(line.if.condition)) {
@@ -68,10 +68,10 @@ class ProgramRunner {
             }
             return this.variables[value.id].value;
         } else if (value.operation === "function") {
-            if (!this.functions[value.id]) {
+            if (!this.functions[value.functionId]) {
                 throw new Error("この関数は存在しません。");
             }
-            return this.functions[value.id].action(this.getRawValue(value.value));
+            return this.functions[value.functionId].action(this.getRawValue(value.argValue));
         }
 
         const value1 = this.getRawValue(value.values[0]) as any;

@@ -1,11 +1,17 @@
 import BaseBlock from "./BaseBlock";
 
-const StringBlock = ({ text }: { text: string }) => {
+type Props = {
+  value: string;
+  setValue: (value: string) => void;
+}
+
+const StringBlock = ({ value, setValue }: Props) => {
   return (
     <BaseBlock
       className="text-string bg-string/10"
-      defaultValue={text}
       wrapText={true}
+      value={value}
+      setValue={setValue}
     />
   );
 }

@@ -22,36 +22,41 @@ export type CalculatedValue = {
     id: string,
 } | {
     operation: "function",
-    id: string,
-    value: Value,
+    functionId: string,
+    argValue: Value,
 };
 export type Value = RawValue | CalculatedValue;
 
 export type AssignVariableLine = {
+    lineId: string,
     type: "assign-variable",
     target: { name: string, id: string },
     value: Value
 }
 
 export type ReassignVariableLine = {
+    lineId: string,
     type: "reassign-variable",
-    id: string,
-    value: Value
+    target: { id: string },
+    value: Value,
 }
 
 export type FunctionLine = {
+    lineId: string,
     type: "function",
-    id: string,
+    target: { name: string, id: string },
     value: Value,
 }
 
 export type BranchLine = {
+    lineId: string,
     type: "branch",
     if: {
         condition: Value,
         lines: ProgramLine[]
     },
     elif?: Array<{
+        elifId: string,
         condition: Value,
         lines: ProgramLine[]
     }>,

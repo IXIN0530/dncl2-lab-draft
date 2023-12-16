@@ -1,16 +1,18 @@
 import BaseSelectBlock from "./BaseSelectBlock";
 
 type Props = {
-  choices: string[];
-  defaultChoice: string;
+  choices: { [id: string]: { name: string } };
+  value: string;
+  setValue: (value: string) => void;
 }
 
-const VariableSelectBlock = ({ choices, defaultChoice }: Props) => {
+const VariableSelectBlock = ({ choices, value, setValue }: Props) => {
   return (
     <BaseSelectBlock
       className="text-variable bg-variable/10"
       choices={choices}
-      defaultValue={defaultChoice}
+      value={value}
+      setValue={setValue}
     />
   );
 }

@@ -1,23 +1,19 @@
-"use client";
-
-import { useState, ChangeEvent } from "react";
-
 type Props = {
   className: string;
-  defaultValue: string;
+  value: string;
+  setValue?: (value: string) => void;
   inputMode?: "decimal" | "text";
   wrapText?: boolean;
 }
 
-const BaseBlock = ({ className, defaultValue, inputMode, wrapText }: Props) => {
+const BaseBlock = ({ className, value, setValue, inputMode, wrapText }: Props) => {
   const start = wrapText ? `"` : "";
   const end = wrapText ? `"` : "";
 
-  const [value, setValue] = useState(defaultValue);
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(typeof e.target.value);
-    setValue(e.target.value);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (setValue) {
+      setValue(e.target.value);
+    }
   }
 
   return (

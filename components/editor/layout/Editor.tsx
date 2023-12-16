@@ -1,47 +1,60 @@
+"use client";
+
 import { LineWrapper, LineGroup } from "@/components/editor/structure";
 import { Program } from "@/types/program";
-import { CodeLine } from "@/types/code";
+import { Code } from "@/types/code";
 import ProgramConverter from "@/functions/programConverter";
 import RunProgram from "./RunProgramBtn";
+import { useState } from "react";
 
-const program: Program = [
-  { type: "assign-variable", target: { name: "変数1", id: "var1" }, value: 4 },
-  { type: "reassign-variable", id: "var1", value: 5 },
-  { type: "assign-variable", target: { name: "変数2", id: "var2" }, value: { operation: "function", id: "show", value: { operation: "equal", values: [2, 20] } } },
-  { type: "function", id: "show", value: { operation: "variable", id: "var2" } },
-  { type: "assign-variable", target: { name: "変数3", id: "var3" }, value: { operation: "and", values: [true, false] } },
-  { type: "function", id: "show", value: { operation: "variable", id: "var3" } },
+const _program: Program = [
+  { lineId: "line1", type: "assign-variable", target: { name: "変数1", id: "var1" }, value: 4 },
+  { lineId: "line2", type: "reassign-variable", target: { id: "var1" }, value: { operation: "divide", values: [{ operation: "variable", id: "var1" }, 5] } },
+  { lineId: "line3", type: "assign-variable", target: { name: "変数2", id: "var2" }, value: { operation: "function", functionId: "square", argValue: { operation: "add", values: [2, 5] } } },
+  { lineId: "line4", type: "function", target: { name: "表示する", id: "show" }, value: { operation: "add", values: [{ operation: "variable", id: "var2" }, 12] } },
+  // { lineId: "line5", type: "assign-variable", target: { name: "変数3", id: "var3" }, value: { operation: "add", values: ["12", 12] } },
   {
+    lineId: "line6",
     type: "branch",
     if: {
       condition: { operation: "bigger", values: [{ operation: "variable", id: "var1" }, 1] },
       lines: [
-        { type: "function", id: "show", value: { operation: "variable", id: "var1" } },
+        { lineId: "line7-1", type: "function", target: { name: "表示する", id: "show" }, value: { operation: "variable", id: "var1" } },
       ]
     },
     elif: [
       {
+        elifId: "elif1",
         condition: { operation: "bigger", values: [{ operation: "variable", id: "var1" }, 3] },
         lines: [
-          { type: "function", id: "show", value: { operation: "variable", id: "var1" } },
+          { lineId: "line7-1", type: "function", target: { name: "表示する", id: "show" }, value: { operation: "variable", id: "var1" } },
+        ]
+      },
+      {
+        elifId: "elif2",
+        condition: { operation: "smaller", values: [{ operation: "variable", id: "var1" }, 5] },
+        lines: [
+          { lineId: "line7-1", type: "function", target: { name: "表示する", id: "show" }, value: "smaller elif" },
         ]
       }
     ],
     else: {
       lines: [
-        { type: "function", id: "show", value: "else this" },
+        { lineId: "line7-1", type: "function", target: { name: "表示する", id: "show" }, value: "else this" },
       ]
     }
   }
 ]
 
-const code = new ProgramConverter().convert(program);
 
 export const Editor = () => {
+  const [program, setProgram] = useState<Program>(_program);
+  const code = new ProgramConverter().convert(program);
+
   return (
     <div className="flex flex-col gap-4 mb-4 drop-shadow">
       <LineWrapper>
-        <LineGroup lines={code} />
+        <LineGroup codeLines={code} programLines={program} setProgramLines={setProgram} />
       </LineWrapper>
       <button className="block mx-auto p-1 w-fit bg-2 rounded-full">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
