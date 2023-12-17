@@ -1,11 +1,11 @@
 import { CodeLine } from "@/types/code";
-import { ProgramLine, BranchLine } from "@/types/program";
+import { ProgramLine, NormalLine } from "@/types/program";
 import LineElems from "./LineElems";
 
 type Props = {
   codeLine: CodeLine;
-  programLine: Exclude<ProgramLine, BranchLine>;
-  setProgramLine: (programLine: Exclude<ProgramLine, BranchLine>) => void;
+  programLine: NormalLine;
+  setProgramLine: (programLine: NormalLine) => void;
 }
 
 const Line = ({ codeLine, programLine, setProgramLine }: Props) => {

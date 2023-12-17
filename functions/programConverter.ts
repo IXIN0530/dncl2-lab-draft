@@ -9,7 +9,7 @@ class ProgramConverter {
         this.variables = {};
         this.functions = {
             show: { name: "表示する", action: (arg: any) => { console.log(arg) } },
-            square: { name: "二乗", action: (arg: number) => arg ** 2 }
+            int: { name: "切り捨て", action: (arg: number) => Math.floor(arg) },
         }
     }
 
@@ -58,6 +58,14 @@ class ProgramConverter {
                         ]
                     })
                     break;
+                case "break":
+                    code.push({
+                        lineId: programLine.lineId,
+                        contents: [
+                            { type: "reserved", value: "処理から抜け出す" },
+                        ]
+                    })
+                    break;
                 case "branch":
                     code.push({
                         lineId: programLine.lineId,
@@ -77,7 +85,7 @@ class ProgramConverter {
                                 lineId: programLine.lineId,
                                 contents: [
                                     { type: "reserved", value: "そうでなくもし" },
-                                    ...this.valueToCodeElems(elifLine.condition, ["condition"]),
+                                    ...this.valueToCodeElems(elifLine.condition, ["elif", index, "condition"]),
                                     { type: "reserved", value: "なら" },
                                 ],
                                 nest: {
@@ -100,6 +108,18 @@ class ProgramConverter {
                         })
                     }
                     break;
+                case "while":
+                    code.push({
+                        lineId: programLine.lineId,
+                        contents: [
+                            ...this.valueToCodeElems(programLine.condition, ["condition"]),
+                            { type: "reserved", value: "の間繰り返す" },
+                        ],
+                        nest: {
+                            info: { why: "while" },
+                            lines: this.convert(programLine.lines),
+                        }
+                    })
             }
         });
 
@@ -180,6 +200,7 @@ class ProgramConverter {
                         }
                     )
                     break;
+
             }
         }
 

@@ -1,4 +1,4 @@
-import { ProgramLine, BranchLine, AssignVariableLine } from "@/types/program";
+import { ProgramLine, NormalLine, AssignVariableLine } from "@/types/program";
 import { LineContents } from "@/types/code";
 import {
   VariableBlock,
@@ -12,8 +12,8 @@ import { ReservedText } from "@/components/editor/text";
 
 type Props = {
   lineContents: LineContents;
-  programLine: Exclude<ProgramLine, BranchLine>;
-  setProgramLine: (programLine: Exclude<ProgramLine, BranchLine>) => void;
+  programLine: NormalLine;
+  setProgramLine: (programLine: NormalLine) => void;
 }
 
 const LineElems = ({ lineContents, programLine, setProgramLine }: Props) => {
@@ -26,7 +26,7 @@ const LineElems = ({ lineContents, programLine, setProgramLine }: Props) => {
   }
 
   const setValiableName = (value: string) => {
-    setProgramLine({ ...programLine, target: { name: value, id: programLine.target.id } } as AssignVariableLine)
+    setProgramLine({ ...programLine as AssignVariableLine, target: { name: value, id: (programLine as AssignVariableLine).target.id } })
   }
 
   const createSetBySelector = (selector: Array<string | number>) => {

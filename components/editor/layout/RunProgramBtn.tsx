@@ -41,7 +41,7 @@ const RunProgram = ({ program }: Props) => {
         <div className="bg-2 rounded-xl p-4 flex flex-col gap-4">
           {result.map((r, i) => (
             <div key={i} className={r.isError ? "text-error" : ""}>
-              <p className="mb-1">{`${r.index}行目での${r.isError ? "エラー" : "出力"}`}</p>
+              <p className="mb-1">{`${r.index + 1}行目での${r.isError ? "エラー" : "出力"}`}</p>
               <p className={`${r.isError ? "bg-error/10" : "bg-3"} p-2 rounded-md`}>{r.text}</p>
             </div>
           ))}

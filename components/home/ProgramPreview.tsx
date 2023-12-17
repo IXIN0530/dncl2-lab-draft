@@ -18,7 +18,6 @@ const ProgramPreview = ({ title }: Props) => {
     const targetWidth = ref.current?.clientWidth;
 
     if (targetWidth) {
-      console.log(targetWidth / screenWidth);
       setScale(targetWidth / screenWidth);
     }
   }, []);

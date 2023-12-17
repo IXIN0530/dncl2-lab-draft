@@ -9,7 +9,7 @@ export type CodeLine = {
 };
 export type LineContents = Array<BlockElem | TextElem>;
 export type NestInfo = {
-    why: "if" | "else";
+    why: "if" | "else" | "while";
 } | {
     why: "elif";
     elifId: string;

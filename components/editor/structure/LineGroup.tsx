@@ -1,5 +1,5 @@
 import { CodeLine, NestInfo } from "@/types/code";
-import { ProgramLine, BranchLine } from "@/types/program";
+import { ProgramLine, NormalLine, NestedLine, BranchLine, WhileLine } from "@/types/program";
 import { Line, Nested } from "@/components/editor/structure";
 import LineWrapper from "./LineWrapper";
 
@@ -11,21 +11,22 @@ type Props = {
 
 export const LineGroup = ({ codeLines, programLines, setProgramLines }: Props) => {
   const getNestedLine = (lineId: string, info: NestInfo) => {
-    const thisLine = programLines.find(programLine => programLine.lineId === lineId) as BranchLine;
+    const thisLine = programLines.find(programLine => programLine.lineId === lineId) as NestedLine;
 
     switch (info.why) {
       case "if":
-        return thisLine["if"].lines;
+        return (thisLine as BranchLine)["if"].lines;
       case "else":
-        return thisLine["else"]?.lines;
+        return (thisLine as BranchLine)["else"]?.lines;
       case "elif":
-        return thisLine["elif"]?.find(l => l.elifId === info.elifId)?.lines;
+        return (thisLine as BranchLine)["elif"]?.find(l => l.elifId === info.elifId)?.lines;
+      case "while":
+        return (thisLine as WhileLine).lines;
     }
   }
 
   const createSetProgramLine = (lineId: string) => {
     return (_programLine: ProgramLine) => {
-      console.log(programLines, _programLine);
       setProgramLines(programLines.map(programLine => programLine.lineId === lineId ? _programLine : programLine))
     }
   }
@@ -68,7 +69,7 @@ export const LineGroup = ({ codeLines, programLines, setProgramLines }: Props) =
           <LineWrapper key={index}>
             <Line
               codeLine={codeLine}
-              programLine={thisLine as Exclude<ProgramLine, BranchLine>}
+              programLine={thisLine as NormalLine}
               setProgramLine={createSetProgramLine(codeLine.lineId)}
             />
             {codeLine.nest && (

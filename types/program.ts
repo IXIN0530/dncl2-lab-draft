@@ -1,5 +1,7 @@
 export type Program = Array<ProgramLine>;
-export type ProgramLine = AssignVariableLine | ReassignVariableLine | FunctionLine | BranchLine;
+export type ProgramLine = NormalLine | NestedLine;
+export type NormalLine = AssignVariableLine | ReassignVariableLine | FunctionLine | BreakLine;
+export type NestedLine = BranchLine | WhileLine;
 
 /**
  * 算術演算
@@ -48,6 +50,11 @@ export type FunctionLine = {
     value: Value,
 }
 
+export type BreakLine = {
+    lineId: string,
+    type: "break",
+}
+
 export type BranchLine = {
     lineId: string,
     type: "branch",
@@ -63,4 +70,11 @@ export type BranchLine = {
     else?: {
         lines: ProgramLine[]
     }
+}
+
+export type WhileLine = {
+    lineId: string,
+    type: "while",
+    condition: Value,
+    lines: ProgramLine[],
 }

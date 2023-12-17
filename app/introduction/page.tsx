@@ -44,9 +44,9 @@ const Page = () => {
         transition={{ duration: 1.1 }}>
         <IntroductionBox title="1.変数と値">
           <p>
-            変数名は英字で始まる、英数字と"_"の並びです。配列は、<span className={variablecolor}>Data</span>[2,4]のように表し、配列の要素は『<span className={variablecolor}>Tokuten</span>[2]』のように要素の番号を当てて表します。<br />
-            文字列は、""でくくって表現します。<br />
-            （例）<span className={stringcolor}>"こんにちは"</span>
+            変数名は英字で始まる、英数字と&quot;_&quot;の並びです。配列は、<span className={variablecolor}>Data</span>[2,4]のように表し、配列の要素は『<span className={variablecolor}>Tokuten</span>[2]』のように要素の番号を当てて表します。<br />
+            文字列は、&quot;&quot;でくくって表現します。<br />
+            （例）<span className={stringcolor}>&quot;こんにちは&quot;</span>
           </p>
         </IntroductionBox>
       </motion.div>
@@ -54,7 +54,7 @@ const Page = () => {
         <IntroductionBox title="2.表示文">
           <p>
             表示文では数値や文字列や変数の値を表示します。<br />
-            （例）<span className={"font-bold" + prosesscolor}>表示する(<span className={stringcolor}>"こんにちは"</span>)</span><br />
+            （例）<span className={"font-bold" + prosesscolor}>表示する(<span className={stringcolor}>&quot;こんにちは&quot;</span>)</span><br />
             このように、<span className={"font-bold" + prosesscolor}>表示する(<span className={variablecolor}>変数</span>)</span>と、表示したい値、変数、文字列を書くことで表示できます。
           </p>
         </IntroductionBox>
@@ -75,7 +75,7 @@ const Page = () => {
             加減乗除の四則演算は，『＋』，『－』，『×』，『 / 』で指定します。整数同士の演算では商は『÷』余りは『%』です。また、（）の使用も可能です。<br />
             数値や文字列は『==』(等しい)、『!=』(等しくない)で比較できます。『and』(かつ)や『or』(または)や『not』(でない)を用いることや、『＜』(より小さい)や『＞＝』(以上)で論理式の真偽を記述することができます。<br />
             <div className="flex flex-col gap-4 m-4">
-              <div><span className={stringcolor}>"red"</span>!=<span className={stringcolor}>"blue"</span></div>
+              <div><span className={stringcolor}>&quot;red&quot;</span>!=<span className={stringcolor}>&quot;blue&quot;</span></div>
               <div><span className={variablecolor}>kosu</span>＜<span className={numbercolor}>12</span>and<span className={variablecolor}>kosu</span>%<span className={numbercolor}>2</span>==<span className={numbercolor}>0</span></div>
               <div><span className={variablecolor}>nyuryoku</span>=【外部からの入力】</div>
             </div>
@@ -145,7 +145,7 @@ const Page = () => {
           <div className="p-4 bg-2 rounded-xl">
             6.1と同様に今度は、指定された値の2進表現を表示する関数、『<span className={"font-bold" + prosesscolor}>二進で表示する</span>』を用意したとします。このとき、<br /><br />
             <span className={"font-bold" + prosesscolor}>二進で表示する</span>(<span className={numbercolor}>11</span>)......この場合、「1011」と表示されます。
-            <div className="my-2"><span className={"font-bold" + prosesscolor}>表示する</span>("私は",<span className={variablecolor}>name</span>[2],"年齢は",<span className={variablecolor}>age</span>[2])</div>
+            <div className="my-2"><span className={"font-bold" + prosesscolor}>表示する</span>(&quot;私は&quot;,<span className={variablecolor}>name</span>[2],&quot;年齢は&quot;,<span className={variablecolor}>age</span>[2])</div>
           </div>
         </div>
       </InViewMotion>

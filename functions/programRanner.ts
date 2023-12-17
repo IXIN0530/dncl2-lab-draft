@@ -17,14 +17,14 @@ class ProgramRunner {
         this.variables = {};
         this.functions = {
             show: { name: "表示する", action: (arg: any) => { this.result.push({ index: this.runningIndex, text: String(arg), isError: false }) } },
-            square: { name: "二乗", action: (arg: number) => arg ** 2 }
+            int: { name: "切り捨て", action: (arg: number) => Math.floor(arg) },
         }
         this.result = [];
     }
 
     run(program: Program) {
-        program.forEach(line => {
-            this.runningIndex += 1;
+        for (const line of program) {
+            this.runningIndex++;
             switch (line.type) {
                 case "assign-variable":
                     this.variables[line.target.id] = { name: line.target.name, value: this.getRawValue(line.value) };
@@ -37,7 +37,8 @@ class ProgramRunner {
                     break;
                 case "branch":
                     if (this.getRawValue(line.if.condition)) {
-                        this.run(line.if.lines);
+                        const res = this.run(line.if.lines);
+                        if (res === "break") { return "break"; }
                     } else {
                         let runElse = !line.elif;
 
@@ -46,17 +47,31 @@ class ProgramRunner {
                             for (const elif of line.elif) {
                                 if (this.getRawValue(elif.condition)) {
                                     runElse = false;
-                                    this.run(elif.lines);
-                                    break;
+                                    const res = this.run(elif.lines);
+                                    if (res === "break") { return "break"; }
                                 }
                             }
                         }
-                        if (runElse && line.else) {
-                            this.run(line.else.lines);
+                        if (line.else) {
+                            if (runElse) {
+                                const res = this.run(line.else.lines);
+                                if (res === "break") { return "break"; }
+                            }
                         }
                     }
+                    break;
+                case "while":
+                    while (this.getRawValue(line.condition)) {
+                        const whileReturn = this.run(line.lines);
+                        if (whileReturn === "break") {
+                            break;
+                        }
+                    }
+                    break;
+                case "break":
+                    return "break";
             }
-        })
+        }
     }
 
     getRawValue = (value: Value): RawValue => {

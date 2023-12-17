@@ -30,7 +30,7 @@ const Page = () => {
         {expectedItems.length ? <p className=" text-center mt-4">検索結果</p> : <span></span>}
         <div className=" mt-1 flex flex-col bg-2 rounded-2xl">
           {expectedItems.map((items, index) =>
-            <Link className="border-b border-gray-300 last:border-none" href={items.href}>
+            <Link key={index} className="border-b border-gray-300 last:border-none" href={items.href}>
               <motion.div className="py-2  block justify-center text-center"
                 animate={{ scale: [1, 1.5, 1] }}
                 transition={{ duration: 0.6, delay: 1.5 + index * 0.3, ease: easeInOut }}>

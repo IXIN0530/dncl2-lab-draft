@@ -1,5 +1,6 @@
 import Editor from "./Editor";
 import EditorActionBar from "./EditorActionBar";
+import EditorAddCode from "./EditorAddCode";
 
 export const EditorMain = () => {
   return (
@@ -7,6 +8,7 @@ export const EditorMain = () => {
       <Editor />
       <div className="mb-4 h-[2px] bg-gray-300 rounded" />
       <EditorActionBar />
+      <EditorAddCode />
     </main>
   );
 }
