@@ -12,6 +12,7 @@ const FunctionSelectBlock = ({ choices, value, setValue, children }: Props) => {
     <div className="flex">
       <BaseSelectBlock
         className="bg-function/10 text-function"
+        type="関数"
         choices={choices}
         value={value}
         setValue={setValue}

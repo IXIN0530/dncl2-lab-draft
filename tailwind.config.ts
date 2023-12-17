@@ -39,7 +39,7 @@ const config: Config = {
         "boolean": colors.pink[500],
         "string": colors.orange[600],
         "reserved": colors.purple[500],
-        "error": colors.red[500],
+        "danger": colors.red[500],
       },
       boxShadow: {
         "DEFAULT": "0 0 6px rgba(0, 0, 0, 0.1)",

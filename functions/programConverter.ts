@@ -10,6 +10,7 @@ class ProgramConverter {
         this.functions = {
             show: { name: "表示する", action: (arg: any) => { console.log(arg) } },
             int: { name: "切り捨て", action: (arg: number) => Math.floor(arg) },
+            str: { name: "文字", action: (arg: any) => String(arg) },
         }
     }
 

@@ -35,21 +35,24 @@ export const LineGroup = ({ codeLines, programLines, setProgramLines }: Props) =
     return (_programLines: ProgramLine[]) => {
       setProgramLines(programLines.map(programLine => {
         if (programLine.lineId === lineId) {
-          const newProgramLine = { ...programLine } as Required<BranchLine>;
+          const newProgramLine = { ...programLine };
 
           switch (info.why) {
             case "if":
-              newProgramLine.if.lines = _programLines;
+              (newProgramLine as Required<BranchLine>).if.lines = _programLines;
               break;
             case "else":
-              newProgramLine.else.lines = _programLines;
+              (newProgramLine as Required<BranchLine>).else.lines = _programLines;
               break;
             case "elif":
-              newProgramLine.elif.forEach(elifLine => {
+              (newProgramLine as Required<BranchLine>).elif.forEach(elifLine => {
                 if (elifLine.elifId === info.elifId) {
                   elifLine.lines = _programLines
                 }
               })
+              break;
+            case "while":
+              (newProgramLine as Required<WhileLine>).lines = _programLines;
               break;
           }
 
@@ -58,6 +61,12 @@ export const LineGroup = ({ codeLines, programLines, setProgramLines }: Props) =
           return programLine
         }
       }))
+    }
+  }
+
+  const createDeleteLine = (lineId: string) => {
+    return () => {
+      setProgramLines(programLines.filter(programLine => programLine.lineId !== lineId))
     }
   }
 
@@ -71,6 +80,7 @@ export const LineGroup = ({ codeLines, programLines, setProgramLines }: Props) =
               codeLine={codeLine}
               programLine={thisLine as NormalLine}
               setProgramLine={createSetProgramLine(codeLine.lineId)}
+              deleteLine={createDeleteLine(codeLine.lineId)}
             />
             {codeLine.nest && (
               <Nested>

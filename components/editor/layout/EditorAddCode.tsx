@@ -1,43 +1,42 @@
 "use client"
-import { animate, motion, useAnimation } from "framer-motion";
-import { useEffect, useState } from "react";
-import EditorMoveVarients from "./EditorMoveVarients";
-const EditorAddCode = () => {
-  const control = useAnimation();
-  const {
-    isSelected,
-  } = EditorMoveVarients();
+
+import { motion } from "framer-motion";
+
+type Props = {
+  isSelected: boolean;
+  setIsSelected: (isSelected: boolean) => void;
+}
+const EditorAddCode = ({ isSelected, setIsSelected }: Props) => {
   const scroll = {
     selected: {
-      y: [100, 0],
+      y: [300, -40, 0],
       opacity: 1,
       transition: { duration: 0.5 },
     },
     unselected: {
-      y: [0, 100],
+      y: [0, 300],
       opacity: 1,
     },
   }
-  console.log(isSelected);
-  useEffect(() => {
-    console.log(isSelected);
-    if (isSelected) {
-      control.start("selected");
-    }
-    else control.start("unselected");
-  }, [isSelected]);
+
   return (
-    <motion.div className="px-4  bg-2 gap-4 grid grid-cols-3 my-4  rounded-2xl shadow-lg"
-      variants={scroll}
-      initial="unselected"
-      animate={control}>
-      <button className=" bg-variable/10 text-variable p-8 my-4  rounded-xl ">変数の追加</button>
-      <button className="bg-3 p-8 my-4  rounded-xl ">演算</button>
-      <button className=" bg-reserved/10 text-reserved p-8 my-4  rounded-xl ">もし~なら</button>
-      <button className=" bg-reserved/10 text-reserved p-8 my-4  rounded-xl ">条件繰り返し</button>
-      <button className=" bg-reserved/10 text-reserved p-8 my-4  rounded-xl ">順次繰り返し</button>
-      <button className=" bg-yellow-400/10 text-yellow-400 p-8 my-4  rounded-xl ">表示する</button>
+    <><motion.div className="fixed bottom-20 right-4"
+      animate={{ x: isSelected ? 0 : "200%" }}>
+      <button className=" bg-string/80 py-2 px-4 rounded-xl text-white mx-auto" onClick={() => (setIsSelected(true))}>追加をやめる</button>
     </motion.div>
+      <motion.div
+        className="w-full fixed bottom-0 left-0 p-4 flex gap-4 overflow-x-auto whitespace-nowrap drop-shadow-xl"
+        animate={{
+          y: isSelected ? 0 : "100%",
+        }}>
+        <button className="px-4 py-2 rounded-xl backdrop-blur-3xl bg-variable/80 text-white">変数の追加</button>
+        <button className="px-4 py-2 rounded-xl backdrop-blur-3xl bg-number/80 text-white">演算</button>
+        <button className="px-4 py-2 rounded-xl backdrop-blur-3xl bg-reserved/80 text-white">もし~なら</button>
+        <button className="px-4 py-2 rounded-xl backdrop-blur-3xl bg-reserved/80 text-white">条件繰り返し</button>
+        <button className="px-4 py-2 rounded-xl backdrop-blur-3xl bg-reserved/80 text-white">順次繰り返し</button>
+        <button className="px-4 py-2 rounded-xl backdrop-blur-3xl bg-yellow-400/80 text-white">表示する</button>
+      </motion.div>
+    </>
   )
 }
 

@@ -34,7 +34,7 @@ const AppTitle = () => {
           </motion.div>
         </motion.div>
       </div>
-      <p>共通テスト情報受験生のためのプログラミング学習ツール</p>
+      <p>共通テスト「情報」受験生のためのプログラミング学習ツール</p>
 
     </motion.div>
   );

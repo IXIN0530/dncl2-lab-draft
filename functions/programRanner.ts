@@ -18,6 +18,7 @@ class ProgramRunner {
         this.functions = {
             show: { name: "表示する", action: (arg: any) => { this.result.push({ index: this.runningIndex, text: String(arg), isError: false }) } },
             int: { name: "切り捨て", action: (arg: number) => Math.floor(arg) },
+            str: { name: "文字", action: (arg: any) => String(arg) },
         }
         this.result = [];
     }
