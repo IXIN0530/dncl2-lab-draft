@@ -18,7 +18,7 @@ const Page = () => {
 
   // },[isInView])
   return (
-    <div className="mt-8">
+    <div className="mt-8 max-w-xl mx-auto">
       <h1 className="my-8 text-center text-3xl font-bold bg-var">DNCL2の説明</h1>
       <motion.div
         initial={{ opacity: 0 }}

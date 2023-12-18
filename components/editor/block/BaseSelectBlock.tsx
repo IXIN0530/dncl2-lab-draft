@@ -14,7 +14,8 @@ const BaseSelectBlock = ({ type, className, choices, value, setValue }: Props) =
   return (
     <label className={"relative flex pl-3 py-1 rounded-xl outline outline-[1px] " + className}>
       <p>{choices[value]?.name || `削除された${type || "値"}`}</p>
-      <svg className="w-6 h-6 mx-1" viewBox="0 0 24 24" fill="currentColor">
+      <svg className="w-6 h-6 mx-1"
+        viewBox="0 0 24 24" fill="currentColor">
         <path d="M7 10l5 5 5-5z" />
       </svg>
       <select

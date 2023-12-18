@@ -8,7 +8,7 @@ const AppTitle = () => {
       transition={{ duration: 0.7 }}>
       <div className="flex items-center">
         <h1 className="text-3xl font-bold my-8 mr-8">DNCL2 Lab</h1>
-        <motion.div className="w-8 h-8  border border-black"
+        <motion.div className="w-8 h-8  border border-black select-none"
           whileHover={{ scale: 1.5, rotate: 270, borderRadius: 100 + "%" }}
           transition={{ duration: 0.6, ease: easeOut }}
           initial={{ scale: 1.5, rotate: 270, borderRadius: 100 + "%" }}

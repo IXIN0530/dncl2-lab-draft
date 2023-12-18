@@ -18,7 +18,7 @@ const InViewMotion = ({ children }: Props) => {
         //duration（アニメーションの長さ）とdelay（アニメーションを遅らせる）をイイカンジに設定する。
         //そうしないとスクロールアニメーションっぽくない。
         duration: 0.7,
-        delay: 0.4,
+        delay: 0.2,
         type: "spring",
       },
     },
